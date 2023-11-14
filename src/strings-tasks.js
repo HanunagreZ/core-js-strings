@@ -199,8 +199,18 @@ function removeLastOccurrences(str, value) {
  *   sumOfCodes('') => 0
  *   sumOfCodes() => 0
  */
-function sumOfCodes(/* str */) {
-  throw new Error('Not implemented');
+function sumOfCodes(str = 0) {
+  if (str === undefined) {
+    return 0;
+  }
+  if (str === null) {
+    return 0;
+  }
+  let sum = 0;
+  for (let i = 0; i < str.length; i += 1) {
+    sum += str.charCodeAt(i);
+  }
+  return sum;
 }
 
 /**
@@ -214,8 +224,8 @@ function sumOfCodes(/* str */) {
  *   startsWith('Hello World', 'World') => false
  *   startsWith('Hello World', 'Hello') => true
  */
-function startsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function startsWith(str, substr) {
+  return str.startsWith(substr);
 }
 
 /**
@@ -229,8 +239,8 @@ function startsWith(/* str, substr */) {
  *   endsWith('Hello World', 'World') => true
  *   endsWith('Hello World', 'Hello') => false
  */
-function endsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function endsWith(str, substr) {
+  return str.endsWith(substr);
 }
 
 /**
@@ -246,8 +256,16 @@ function endsWith(/* str, substr */) {
  *   formatTime(0, 45) => "00:45"
  *   formatTime(0, 0) => "00:00"
  */
-function formatTime(/* minutes, seconds */) {
-  throw new Error('Not implemented');
+function formatTime(minutes, seconds) {
+  let resultMinutes = minutes;
+  let resultSeconds = seconds;
+  if (minutes < 10) {
+    resultMinutes = String(minutes).padStart(2, '0');
+  }
+  if (seconds < 10) {
+    resultSeconds = String(seconds).padStart(2, '0');
+  }
+  return `${resultMinutes}:${resultSeconds}`;
 }
 
 /**
@@ -260,8 +278,10 @@ function formatTime(/* minutes, seconds */) {
  *   reverseString('abcdef') => 'fedcba'
  *   reverseString('12345') => '54321'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  const arrayFromString = [...str];
+  arrayFromString.reverse();
+  return arrayFromString.join('');
 }
 
 /**
@@ -275,8 +295,10 @@ function reverseString(/* str */) {
  *   orderAlphabetically('textbook') => 'bekoottx'
  *   orderAlphabetically('abc123xyz') => '123abcxyz'
  */
-function orderAlphabetically(/* str */) {
-  throw new Error('Not implemented');
+function orderAlphabetically(str) {
+  const arrayFromString = [...str];
+  arrayFromString.sort();
+  return arrayFromString.join('');
 }
 
 /**
@@ -291,8 +313,8 @@ function orderAlphabetically(/* str */) {
  *   containsSubstring('JavaScript is Fun', 'Python') => false
  *   containsSubstring('12345', '34') => true
  */
-function containsSubstring(/* str, substring */) {
-  throw new Error('Not implemented');
+function containsSubstring(str, substring) {
+  return str.includes(substring);
 }
 
 /**
@@ -309,8 +331,15 @@ function containsSubstring(/* str, substring */) {
  *   countVowels('aEiOu') => 5
  *   countVowels('XYZ') => 1
  */
-function countVowels(/* str */) {
-  throw new Error('Not implemented');
+function countVowels(str) {
+  const vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'];
+  let count = 0;
+  for (let i = 0; i < str.length; i += 1) {
+    if (vowels.includes(str[i])) {
+      count += 1;
+    }
+  }
+  return count;
 }
 
 /**
@@ -326,8 +355,29 @@ function countVowels(/* str */) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const array = [...str];
+  if (array[array.length - 1] === '!' || array[array.length - 1] === '?') {
+    array.pop();
+  }
+  const reversedArray = [...str];
+  if (
+    reversedArray[reversedArray.length - 1] === '!' ||
+    reversedArray[reversedArray.length - 1] === '?'
+  ) {
+    reversedArray.pop();
+  }
+  reversedArray.reverse();
+  const firstString = array.join('').toLowerCase();
+  const firstStringDone = firstString.replaceAll(' ', '');
+  const firstStringDone2 = firstStringDone.replaceAll(',', '');
+  const secondString = reversedArray.join('').toLowerCase();
+  const secondStringDone = secondString.replaceAll(' ', '');
+  const secondStringDone2 = secondStringDone.replaceAll(',', '');
+  if (firstStringDone2 === secondStringDone2) {
+    return true;
+  }
+  return false;
 }
 
 /**
